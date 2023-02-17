@@ -1,16 +1,12 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
+RUN mkdir home/data
 ADD IF.txt home/data/
 ADD Limerick.txt home/data/
 ADD app.py /home
 
-RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends \
-	python3
+RUN apk update && \
+    apk add --no-cache python3
 
-WORKDIR /home
-RUN python3 app.py
-
-WORKDIR /home/output
-
-CMD ["cat","result.txt"]
+CMD ["/home/app.py"]
+ENTRYPOINT [ "python3" ]

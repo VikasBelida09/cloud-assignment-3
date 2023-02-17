@@ -18,7 +18,7 @@ def read_file(fname):
         content=file.read()
         return content
 def word_count(content:str)->int:
-    return len(re.split(', |; | ',content))
+    return len(content.split())
 def get_top_3_words(content):
     word_counts=Counter(content)
     top_3_words=word_counts.most_common(3)
@@ -27,11 +27,11 @@ def get_top_3_words(content):
 def get_top_k_words_for_file(filename):
     fp=f'{data_dir}/{filename}'
     f_content=read_file(fp)
-    return get_top_3_words(f_content.split(" "))
+    return get_top_3_words(f_content.split())
 def get_ip():
     return socket.gethostbyname(socket.gethostname())
 with open(output_file_dir,'w') as file:
-    file.write("Files present in the /home/work are:\n")
+    file.write("Files present in the /home/data are:\n")
     for fname in files:
         file.write("\t"+fname+"\n")
     for fname in files:
@@ -47,3 +47,5 @@ with open(output_file_dir,'w') as file:
     for word,count in top_3_words:
         file.write(f'\t{word}: {count}\n')
     file.write(f'IP Address: {get_ip()}\n')
+result=read_file(output_file_dir)
+print(result)
